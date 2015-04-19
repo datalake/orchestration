@@ -1,0 +1,8 @@
+---
+
+- name: Touch the dl-cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - command: /bin/ls -l
+  

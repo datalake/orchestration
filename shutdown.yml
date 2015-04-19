@@ -1,0 +1,8 @@
+---
+
+- name: shutdown the dl-cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - command: /sbin/shutdown -P now
+  

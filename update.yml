@@ -1,0 +1,23 @@
+---
+
+- name: run an apt-get update on the dl-cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    # upgrade all packages to the latest version
+    - apt: upgrade=dist
+
+    # install package 'foo' with specific version 1.00
+    #- apt: name=foo=1.00 state=present
+    # remove package 'foo'
+    #- apt: name=foo state=absent
+    # Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+    #- apt: update_cache=yes cache_valid_time=3600
+    # Pass options to dpkg on run
+    #- apt: upgrade=dist update_cache=yes dpkg_options='force-confold,force-confdef'
+    # Install a .deb package
+    #- apt: deb=/tmp/mypackage.deb
+    # Install the build dependencies for package "foo"
+    #- apt: pkg=foo state=build-dep
+  
