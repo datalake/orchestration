@@ -1,0 +1,41 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    dl_base_ami: ami-dceed0b4
+    sw_base_ami: ami-58774930
+
+  tasks:
+    # FIX: this should be done through an ASG
+    - name: Provision a set of AWS EC2 instances
+      ec2:
+        region:        us-east-1
+        key_name:      datalake
+        group:         dl_cluster
+        instance_type: m3.large
+        image:         "{{ dl_base_ami }}"
+        wait:          true
+        exact_count:   2
+        count_tag:
+           Name: DataLakeClusterInstance
+        instance_tags:
+           Name: DataLakeClusterInstance
+      register: dl_cluster
+
+    - debug: var=dl_cluster
+
+    - name: Add all instance public IPs to the host group
+      add_host: hostname={{ item.public_ip }} groups=ec2hosts
+      with_items: dl_cluster.tagged_instances
+
+- hosts: ec2hosts
+  name: configuration play
+  user: ubuntu
+  gather_facts: true
+
+  tasks:
+    - name: Check NTP service
+      service: name=ntpd state=started
+
