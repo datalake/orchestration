@@ -1,0 +1,8 @@
+---
+
+- name: Gather the Java version running on the remote nodes
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - command: java -version
+  

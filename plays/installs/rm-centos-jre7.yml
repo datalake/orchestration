@@ -1,0 +1,11 @@
+---
+
+- name: Remove OpenJDK 1.7 Java Runtime Environment (JRE) across a Centos-based cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - yum: update_cache=yes cache_valid_time=3600
+    # the java-1.7.0-openjdk contains just the Java Runtime Environment
+    - yum: name=java-1.7.0-openjdk state=absent
+
+  

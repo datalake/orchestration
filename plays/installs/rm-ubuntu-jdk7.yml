@@ -1,0 +1,10 @@
+---
+
+- name: Remove OpenJDK 1.7 Java Development Kit (JDK) from a Ubuntu-based cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    - apt: name=openjdk-7-jdk state=absent
+
+  

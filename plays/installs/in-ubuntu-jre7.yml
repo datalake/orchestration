@@ -1,0 +1,10 @@
+---
+
+- name: Install OpenJDK 1.7 Java Runtime Environment (JRE) across a Ubuntu-based cluster
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    - apt: name=openjdk-7-jre state=present
+
+  
