@@ -1,0 +1,10 @@
+---
+
+- name: remove Libre Office from a Ubuntu installations
+  hosts: all
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    # remove libreoffice
+    - apt: name=libreoffice* state=absent purge=yes
+  

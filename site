@@ -1,0 +1,15 @@
+[control]
+localhost   ansible_connection=local
+sw-11
+
+[mesos-masters]
+sw-21
+sw-22
+sw-23
+sw-24
+
+[dl-cluster]
+dl001
+dl002
+dl003
+dl004

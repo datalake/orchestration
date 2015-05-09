@@ -1,7 +1,7 @@
 ---
 
-- name: poweroff the dl-cluster
-  hosts: dl-cluster
+- name: poweroff the host set
+  hosts: all
   sudo: yes
   tasks:
     - command: /sbin/poweroff

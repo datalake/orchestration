@@ -1,0 +1,35 @@
+---
+
+# Add an apt key by id from a keyserver
+- name: Add the Mesosphere repo key
+  hosts: mesos-masters dl-cluster
+  sudo: yes
+  tasks:
+    apt_key: keyserver=keyserver.ubuntu.com id=E56151BF
+
+- name: Add the Mesosphere repositories
+  hosts: mesos-masters dl-cluster
+  sudo: yes
+  tasks:
+    - script: scripts/mesosphere_repo.sh
+
+- name: upload local package cache to gain access to Mesos components
+  hosts: all
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    # upgrade all packages to the latest version
+    - apt: upgrade=dist
+
+- name: install Mesosphere masters
+  hosts: mesos-masters
+  sudo: yes
+  tasks:
+    apt: package=mesosphere state=present
+
+- name: install Mesosphere slaves
+  hosts: dl-cluster
+  sudo: yes
+  tasks:
+    apt: package=mesos state=present
+

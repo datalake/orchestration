@@ -1,7 +1,7 @@
 ---
 
-- name: run an apt-get update on the dl-cluster
-  hosts: dl-cluster
+- name: run a software update on the site
+  hosts: all
   sudo: yes
   tasks:
     - apt: update_cache=yes cache_valid_time=3600

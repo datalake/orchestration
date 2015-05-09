@@ -1,7 +1,7 @@
 ---
 
-- name: reboot the dl-cluster
-  hosts: dl-cluster
+- name: reboot the cluster
+  hosts: all
   sudo: yes
   tasks:
     - command: /sbin/reboot
