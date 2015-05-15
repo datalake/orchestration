@@ -1,0 +1,7 @@
+---
+
+- name: apt-get autoremove
+  hosts: all
+  sudo: yes
+  tasks:
+    - command: apt-get -y autoremove

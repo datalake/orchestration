@@ -13,3 +13,7 @@ dl001
 dl002
 dl003
 dl004
+
+[mesos:children]
+mesos-masters
+dl-cluster

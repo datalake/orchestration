@@ -1,13 +1,16 @@
 ---
 
 - name: Install Pertino clients on the dl-cluster
-  hosts: dl-cluster
+  hosts: sw-21
   sudo: yes
   tasks:
     # install Pertino GPG signing key
-    - command: "wget -O - http://reposerver.pertino.com/Pertino-GPG-Key.pub | sudo apt-key add -"
+    - apt_key: url=http://reposerver.pertino.com/Pertino-GPG-Key.pub
     # add the Pertino repo server to the distribution source list
-    - command: "sudo sh -c "echo 'deb http://reposerver.pertino.com/debs trusty multiverse' > /etc/apt/sources.list.d/pertino.list"
+    - script: ./scripts/pertino_repo.sh
     # install the Pertino client
-    - apt: update_cache=true name=pertino-client
+    - apt: update_cache=true cache_valid_time=3600 name=pertino-client state=present
+    - command: 'ifconfig pertino0'
+      register: ifconfig
+    - debug: var=ifconfig
   

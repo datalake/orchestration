@@ -1,0 +1,15 @@
+[mesosphere:children]
+mesos-masters
+mesos-slaves
+
+[mesos-masters]
+sw-21
+sw-22
+sw-23
+sw-24
+
+[mesos-slaves]
+dl001
+dl002
+dl003
+dl004
