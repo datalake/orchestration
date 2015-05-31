@@ -1,0 +1,32 @@
+---
+
+- name: Install Hadoop
+  hosts: dl-cluster
+  gather_facts: true
+  sudo: yes
+
+  vars:
+    - target_dir:  /home/stillwater/repos
+    - target_dist: hadoop-2.6.0.tar.gz
+    - target_mirror: http://apache.mirrors.lucidnetworks.net/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz 
+
+  tasks:
+    - name: Set target repo directory
+      file: path={{target_dir}} state=directory
+
+    - name: Download Hadoop tar
+      get_url: url={{target_mirror}} dest={{target_dir}}/{{target_dist}} mode=0644 sha256sum=7A2EF6E7F468AFCAE95D0F7214816033C7E5C7982454061CCB117896D58D279F
+
+    - name: Install OpenJDK
+      apt: package=openjdk-7-jdk update-cache=yes state=present
+
+    - name: Set JDK bash environment for current user
+      copy: src=files/jdk.sh dest=/etc/profile.d owner=root group=root mode=0644
+
+    - name: Install prerequisities
+      apt: package=rsync state=present
+
+    - name: Unpack the Hadoop distribution
+      unarchive: src={{target_dir}}/{{target_dist}} dest=/opt copy=no
+
+
