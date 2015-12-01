@@ -1,6 +1,8 @@
 [control]
 localhost   ansible_connection=local
 sw-11
+sw-12
+sw-13
 
 [mesos-masters]
 sw-21

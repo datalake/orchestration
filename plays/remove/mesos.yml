@@ -1,0 +1,22 @@
+---
+
+- name: upload local package cache to gain access to Mesos components
+  hosts: mesosphere
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+
+- name: remove Mesosphere and Zookeeper from the master nodes
+  hosts: mesos-masters
+  sudo: yes
+  tasks:
+    - apt: package=mesosphere state=absent
+    - apt: package=zookeeper state=absent
+
+- name: remove Mesos from the worker nodes
+  hosts: mesos-slaves
+  sudo: yes
+  tasks:
+    - apt: package=mesos state=absent
+    
+

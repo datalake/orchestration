@@ -1,0 +1,14 @@
+---
+
+- name: Install Ruby on Rails and RubyGems
+  hosts: all
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+    - apt: name=curl state=present
+    - command: curl -L https://get.rvm.io | bash -s stable --ruby
+    - command: rvm get stable --autolibs=enable
+    - command: rvm install ruby
+    - command: rvm --default use ruby-2.2.2
+
+  

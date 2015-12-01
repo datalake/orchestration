@@ -1,0 +1,14 @@
+---
+
+- hosts: sw-11
+  sudo: yes
+  vars:
+    hue_version: hue-3.8.1
+    hue_tarball: hue-3.8.1.tgz
+    hue_tmp_dir: /tmp
+    hue_drop: "{{ hue_tmp_dir }}/{{ hue_tarball }}"
+    hue_url: https://dl.dropboxusercontent.com/u/730827/hue/releases/3.8.1/hue-3.8.1.tgz
+    hue_deposit_dir: /opt
+    hue_install_dir: "{{ hue_deposit_dir }}/{{ hue_version }}"
+  tasks:
+    - include: plays/install/hue.yml

@@ -1,0 +1,26 @@
+---
+
+# Add an apt key by id from a keyserver
+- name: Add the HortonWorks repo key
+  hosts: hdp-cluster
+  sudo: yes
+  tasks:
+    - apt_key: id=B9733A7A07513CAD keyserver=keyserver.ubuntu.com state=present
+
+- name: Add the Hortonworks Ambari repo
+  hosts: hdp-cluster
+  sudo: yes
+  tasks:
+    - script: scripts/ambari_repo.sh
+
+- name: upload local package cache to gain access to HDP components
+  hosts: hdp-cluster
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes cache_valid_time=3600
+
+- name: install Ambari server on the Master
+  hosts: ambari-server
+  sudo: yes
+  tasks:
+    - apt: package=ambari-server state=present

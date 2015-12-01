@@ -1,0 +1,13 @@
+# Idempotent way to build a /etc/hosts file using your Ansible hosts inventory 
+# Will include all hosts the playbook is run on.
+# Inspired by http://xmeblog.blogspot.com/2013/06/ansible-dynamicaly-update-etchosts.html
+
+---
+- hosts: all
+  gather_facts: True
+  sudo: True
+  tasks:
+    - name: "Build hosts file"
+      lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_default_ipv4.address }} {{item}}" state=present
+      when: hostvars[item].ansible_default_ipv4.address is defined
+      with_items: groups['all']

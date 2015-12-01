@@ -1,0 +1,155 @@
+---
+
+- name: Remove Hortonworks Data Platform
+  apt: name={{ item }} state=absent force=yes
+  with_items:
+    - ambari-agent
+    - ambari-server
+    - ambari-log4j
+    - ambari-metrics-assembly
+    - storm-2-3-2-0-2950
+    - accumulo-2-3-2-0-2950-source
+    - slider-2-3-2-0-2950
+    - atlas-metadata-2-3-2-0-2950-hive-plugin
+    - datafu-2-3-2-0-2950
+    - falcon-2-3-2-0-2950
+    - hive-2-3-2-0-2950
+    - hive-2-3-2-0-2950-hbase
+    - hive-2-3-2-0-2950-hcatalog
+    - hive-2-3-2-0-2950-hcatalog-server
+    - hive-2-3-2-0-2950-jdbc
+    - hive-2-3-2-0-2950-metastore
+    - hive-2-3-2-0-2950-server
+    - hive-2-3-2-0-2950-server2
+    - hive-2-3-2-0-2950-webhcat
+    - hive-2-3-2-0-2950-webhcat-server
+    - oozie-2-3-2-0-2950
+    - oozie-2-3-2-0-2950-client
+    - oozie-2-3-2-0-2950-server
+    - pig-2-3-2-0-2950
+    - flume-2-3-2-0-2950-agent
+    - flume-2-3-2-0-2950
+    - hdp-select
+    - ranger-2-3-2-0-2950-hbase-plugin
+    - ranger-2-3-2-0-2950-hdfs-plugin
+    - ranger-2-3-2-0-2950-hive-plugin
+    - ranger-2-3-2-0-2950-yarn-plugin
+    - ranger-2-3-2-0-2950-storm-plugin
+    - tez-2-3-2-0-2950
+    - hbase-2-3-2-0-2950
+    - hbase-2-3-2-0-2950-doc
+    - hadoop-2-3-2-0-2950
+    - hadoop-2-3-2-0-2950-client
+    - hadoop-2-3-2-0-2950-hdfs
+    - hadoop-2-3-2-0-2950-hdfs-datanode
+    - hadoop-2-3-2-0-2950-hdfs-journalnode
+    - hadoop-2-3-2-0-2950-hdfs-namenode
+    - hadoop-2-3-2-0-2950-hdfs-secondarynamenode
+    - hadoop-2-3-2-0-2950-hdfs-zkfc
+    - hadoop-2-3-2-0-2950-mapreduce
+    - hadoop-2-3-2-0-2950-mapreduce-historyserver
+    - hadoop-2-3-2-0-2950-yarn
+    - hadoop-2-3-2-0-2950-yarn-nodemanager
+    - hadoop-2-3-2-0-2950-yarn-proxyserver
+    - hadoop-2-3-2-0-2950-yarn-resourcemanager
+    - hadoop-2-3-2-0-2950-yarn-timelineserver
+    - hadooplzo-2-3-2-0-2950
+    - hadooplzo-2-3-2-0-2950-native
+    - libhdfs0-2-3-2-0-2950
+    - zookeeper-2-3-2-0-2950
+  ignore_errors: yes
+ 
+- name: Remove HDP accounts
+  user: name={{ item }} state=absent remove=yes
+  with_items:
+    - slider
+    - storm
+    - hcat
+    - knox
+    - hbase
+    - mapred
+    - yarn
+    - sqoop
+    - hdfs
+    - kafka
+    - flume
+    - ambari-qa
+    - spark
+    - mahout
+    - accumulo
+    - hive
+    - tez
+    - falcon
+    - ams
+    - atlas
+    - oozie
+    - zookeeper
+ 
+- name: Remove HDP groups
+  group: name={{ item }} state=absent
+  with_items:
+    - storm
+    - spark
+    - sqoop
+    - slider
+    - accumulo
+    - hadoop
+    - knox
+    - hdfs
+    - zookeeper
+    - hbase
+    - hive
+    - oozie
+    - falcon
+
+- name: Remove conflicting packages
+  apt: name={{ item }} state=absent
+  with_items:
+    - r-base
+    - octave
+    - r-cran-cluster
+    - libqhull6
+    - libhdf5-7
+    - octave-common
+    - r-cran-survival
+    - r-cran-spatial
+    - r-cran-nlme
+    - aglfn
+    - r-base-dev
+    - r-cran-mass
+    - libfltk-gl1.3
+    - libatlas3-base
+    - r-base-html
+    - libqrupdate1
+    - r-cran-foreign
+    - libwxbase2.8-0
+    - libpstoedit0c2a
+    - r-cran-rpart
+    - libgl2ps0
+    - gnuplot-x11
+    - libwxgtk2.8-0
+    - liboctave2
+    - r-recommended
+    - libfltk1.3
+    - r-cran-boot
+    - r-cran-class
+    - libglpk36
+    - libgraphicsmagick++3
+    - libgraphicsmagick3
+    - r-doc-html
+    - r-cran-matrix
+    - r-cran-codetools
+    - pstoedit
+    - r-base-core
+    - libplot2c2
+    - zlibc
+    - r-cran-nnet
+    - libarpack2
+    - r-cran-kernsmooth
+    - r-cran-lattice
+    - hdp-select
+    - r-cran-mgcv
+    - bigtop-jsvc
+    - bigtop-tomcat
+    - extjs
+    - mysql-connector-java

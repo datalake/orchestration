@@ -1,0 +1,9 @@
+---
+
+- name: Remove Ambari
+  apt: name="{{ item }}" state=absent
+  with_items:
+    - ambari-agent
+    - ambari-server
+    - ambari-log4j
+    - ambari-metrics-assembly

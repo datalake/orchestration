@@ -1,0 +1,45 @@
+---
+
+- name: Install dependencies
+  apt: name="{{ item }}" state=present
+  with_items:
+    - ant
+    - gcc
+    - g++
+    - libkrb5-dev
+    - libmysqlclient-dev
+    - libssl-dev
+    - libsasl2-dev
+    - libsasl2-modules-gssapi-mit
+    - libsqlite3-dev
+    - libtidy-0.99-0
+    - libxml2-dev
+    - libxslt-dev
+    - maven
+    - libldap2-dev
+    - python-dev
+    - python-simplejson
+    - python-setuptools
+
+- name: Create install directory
+  sudo: yes
+  file: path="{{ hue_deposit_dir }}" state=directory
+
+- name: Download Hue
+  get_url: url="{{ hue_url }}" dest="{{ hue_drop }}"
+
+- name: Unpack Hue tarball
+  sudo: yes
+  unarchive: src="{{ hue_drop }}" dest="{{ hue_deposit_dir }}" copy=no
+
+#- name: Download and unpack Hue tarball
+#  sudo: yes
+#  unarchive: src="{{ hue_url }}" dest="{{ hue_deposit_dir }}" copy=no
+
+- name: Install Hue
+  sudo: yes
+  command: chdir="{{ hue_install_dir }}" make install
+
+- name: Normalize the install
+  sudo: yes
+  command: chown -R stillwater:stillwater /usr/local/hue

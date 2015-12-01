@@ -1,0 +1,8 @@
+---
+
+- name: Remove Ambari
+  hosts: all
+  sudo: yes
+  gather_facts: yes
+  tasks:
+    - include: "plays/remove/hortonworks.yml"

@@ -1,0 +1,9 @@
+---
+
+- name: Check if the cluster is ready
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check if individual hosts are up and running
+      local_action: 
+        wait_for host={{ inventory_hostname }} state=started

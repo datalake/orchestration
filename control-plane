@@ -1,0 +1,5 @@
+[control-plane]
+sw-11
+sw-12
+sw-13
+sw-jh-000 ansible_connection=local

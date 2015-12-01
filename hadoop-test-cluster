@@ -1,0 +1,11 @@
+[hdp-cluster:children]
+ambari-server
+data-nodes
+
+[ambari-server]
+sw-21
+
+[data-nodes]
+sw-22
+sw-23
+sw-24

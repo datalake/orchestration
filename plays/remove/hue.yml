@@ -1,0 +1,31 @@
+---
+
+- name: Uninstall dependencies
+  apt: name="{{ item }}" state=absent
+  with_items:
+    - ant
+    - gcc
+    - g++
+    - libkrb5-dev
+    - libmysqlclient-dev
+    - libssl-dev
+    - libsasl2-dev
+    - libsasl2-modules-gssapi-mit
+    - libsqlite3-dev
+    - libtidy-0.99-0
+    - libxml2-dev
+    - libxslt-dev
+    - maven
+    - libldap2-dev
+    - python-dev
+    - python-simplejson
+    - python-setuptools
+
+- name: Uninstall Hue
+  sudo: yes
+  command: "cd {{ hue_install_dir }} & make uninstall"
+
+- name: Remove install directory
+  sudo: yes
+  file: path="{{ hue_install_dir }}" state=absent
+
