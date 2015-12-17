@@ -3,6 +3,7 @@
 - name: poweroff the host set
   hosts: all
   sudo: yes
+  gather_facts: no
   tasks:
     - command: /sbin/poweroff
   

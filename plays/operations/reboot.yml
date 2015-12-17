@@ -3,6 +3,7 @@
 - name: reboot the cluster
   hosts: all
   sudo: yes
+  gather_facts: no
   tasks:
     - name: Restart all machines in the cluster
       command: /sbin/shutdown -r now "Ansible triggered reboot"
